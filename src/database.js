@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 async function connect() {
     const host = process.env.MONGO_HOST || 'localhost';
-    const dbName = process.env.DB || 'crud-node-express-mongo';
+    const dbName = process.env.DB || 'ilbarto';
 
     await mongoose.connect(`mongodb://${host}/${dbName}`, {
         useNewUrlParser: true,
