@@ -6,14 +6,14 @@ const router = Router();
 router.get('', async (_req, res, _next) => {
     const users = await User.find();
     res.json(users);
-})
+});
 
 router.get('/:id', async (req, res, _next) => {
     const user = await User.findOne({_id: req.params.id});
     
     if (user) res.json(user);
     else res.status(404).send('User not found');
-})
+});
 
 router.post('', async (req, res, _next) => {
     const user = new User({
@@ -26,14 +26,14 @@ router.post('', async (req, res, _next) => {
         const userSaved = await user.save();
         res.json(userSaved);
     } catch(err) {
-        res.status(500).send(err)
+        res.status(500).send(err);
     }
-})
+});
 
 router.delete('/:id', async (req, res, _next) => {
     await User.findOneAndDelete({_id: req.params.id});
     res.status(204).send();
-})
+});
 
 router.put('/:id', async (req, res, _next) => {
     try {
@@ -52,6 +52,6 @@ router.put('/:id', async (req, res, _next) => {
     } catch (err) {
         res.status(500).send(err);
     }
-})
+});
 
 export default router;
