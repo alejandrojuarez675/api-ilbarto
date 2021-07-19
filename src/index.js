@@ -20,5 +20,5 @@ app.use('/shops', shopsRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server run on port ${port}`)
+    console.log(`Server run on port ${port}`);
 });

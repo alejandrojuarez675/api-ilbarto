@@ -1,16 +1,17 @@
 import { Router } from 'express';
 import Shops from './../models/shops.model';
+import authentificated from './../middleware/auth-google';
 
 const router = Router();
 
-router.get('/:name/products', async (req, res) => {
+router.get('/:name/products', authentificated, async (req, res) => {
     const shop = await Shops.findOne({name: req.params.name});
 
     if (shop) res.json(shop.products);
     else res.status(404).send('Shop not found');
 });
 
-router.post('/:name/products', async (req, res) => {
+router.post('/:name/products', authentificated, async (req, res) => {
     const shop = await Shops.findOne({name: req.params.name});
     if (!shop) { res.status(404).send('Shop not found'); return;}
 
@@ -25,7 +26,7 @@ router.post('/:name/products', async (req, res) => {
     }
 });
 
-router.get('/:name/products/:idProduct', async (req, res) => {
+router.get('/:name/products/:idProduct', authentificated, async (req, res) => {
     const shop = await Shops.findOne({name: req.params.name});
     if (!shop) { res.status(404).send('Shop not found'); return;}
 
@@ -36,7 +37,7 @@ router.get('/:name/products/:idProduct', async (req, res) => {
     res.json(productById);
 });
 
-router.put('/:name/products/:idProduct', async (req, res) => {
+router.put('/:name/products/:idProduct', authentificated, async (req, res) => {
     const shop = await Shops.findOne({name: req.params.name});
     if (!shop) { res.status(404).send('Shop not found'); return;}
 
@@ -56,7 +57,7 @@ router.put('/:name/products/:idProduct', async (req, res) => {
     }
 });
 
-router.delete('/:name/products/:idProduct', async (req, res) => {
+router.delete('/:name/products/:idProduct', authentificated, async (req, res) => {
     const shop = await Shops.findOne({name: req.params.name});
     if (!shop) { res.status(404).send('Shop not found'); return;}
 
