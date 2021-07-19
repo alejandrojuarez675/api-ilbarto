@@ -10,7 +10,7 @@ const onlyShopAdmin = async (req, res, next) => {
         .getManagedShopsByUserEmail(req.body.userAuthData.email);
         
     if (!allowedShops.find(x => x === req.params.name)) 
-        res.status(401).send('Shop not allowed for this user');
+        res.status(401).json({error: "Shop not allowed for this user"});
     next();
 };
 
