@@ -5,10 +5,12 @@ module.exports = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     const client = new OAuth2Client(CLIENT_ID);
-    await client.verifyIdToken({
+    const user = await client.verifyIdToken({
       idToken: token,
       audience: CLIENT_ID,
     });
+    req.body = { userAuthData: user.getPayload(), ...req.body };
+
     next();
   } catch (err) {
     res.status(401).json({
